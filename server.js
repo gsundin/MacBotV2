@@ -16,9 +16,13 @@ var SSH = require('simple-ssh');
 
 var ssh = new SSH({
     //host: 'localhost',
-    host: '35.22.24.239',
-    user: 'Wei-Wei',
-    pass: '!!Gw009257!!'
+    //host: '35.22.24.239',
+    //user: 'Wei-Wei',
+    //pass: '!!Gw009257!!'
+
+    host: 'csel-kh1250-01.cselabs.umn.edu',
+    user: 'wuxx1045',
+    pass: 'Gw009257!!'
     //key: SSH_KEY
 });
 
@@ -64,11 +68,6 @@ const server = app.listen(process.env.PORT || 5033, () => {
 
 //text
 app.get('/test', (req, res) => {
-      ssh.exec('echo $PATH', {
-        out: function(stdout) {
-            console.log(stdout);
-        }
-    }).start();
     res.status(200).send('test successs');
 });
 
