@@ -64,6 +64,11 @@ const server = app.listen(process.env.PORT || 5033, () => {
 
 //text
 app.get('/test', (req, res) => {
+      ssh.exec('echo $PATH', {
+        out: function(stdout) {
+            console.log(stdout);
+        }
+    }).start();
     res.status(200).send('test successs');
 });
 
