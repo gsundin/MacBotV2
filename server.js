@@ -15,14 +15,14 @@ const apiaiApp = apiai(APIAI_TOKEN);
 var SSH = require('simple-ssh');
 
 var ssh = new SSH({
-    //host: 'localhost',
-    //host: '35.22.24.239',
-    //user: 'Wei-Wei',
-    //pass: '!!Gw009257!!'
+  //  host: 'localhost',
+    host: '35.22.24.239',
+    user: 'Wei-Wei',
+    pass: '!!Gw009257!!'
 
-    host: 'csel-kh1250-01.cselabs.umn.edu',
-    user: 'wuxx1045',
-    pass: 'Gw009257!!'
+    // host: 'csel-kh1250-01.cselabs.umn.edu',
+    // user: 'wuxx1045',
+    // pass: 'Gw009257!!'
     //key: SSH_KEY
 });
 
