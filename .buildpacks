@@ -1,0 +1,3 @@
+# .buildpacks
+https://github.com/kollegorna/heroku-buildpack-autossh.git
+https://github.com/heroku/heroku-buildpack-ruby.git#v138
