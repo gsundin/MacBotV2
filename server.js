@@ -18,7 +18,7 @@ const apiaiApp = apiai(APIAI_TOKEN);
 
 app.use(express.static(__dirname + '/public'));
 app.get('/index.html', function (req, res) {
-   res.sendFile(__dirname + "/" + "index.php");
+   res.sendFile(__dirname + "/" + "index.html");
 })
 
 var site_server = app.listen(8081, function () {
