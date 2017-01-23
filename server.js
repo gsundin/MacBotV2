@@ -3,7 +3,7 @@ const APIAI_TOKEN = '67460b2deea9478ba2c72710bdcb3988';
 const WEATHER_API_KEY = '9372fc4ed00ed38e46e398f65326d438';
 //const SSH_KEY = require('fs').readFileSync('~/.ssh/id_rsa');
 
-const HOST = '35.22.24.239';
+const HOST = '10.0.0.45';
 const USER = 'Wei-Wei';
 const PASS = '!!Gw009257!!';
 
