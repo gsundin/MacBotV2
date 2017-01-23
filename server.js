@@ -3,6 +3,11 @@ const APIAI_TOKEN = '67460b2deea9478ba2c72710bdcb3988';
 const WEATHER_API_KEY = '9372fc4ed00ed38e46e398f65326d438';
 //const SSH_KEY = require('fs').readFileSync('~/.ssh/id_rsa');
 
+const HOST = '35.22.24.239';
+const USER = 'Wei-Wei';
+const PASS = '!!Gw009257!!';
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
@@ -11,27 +16,35 @@ const apiai = require('apiai');
 const app = express();
 const apiaiApp = apiai(APIAI_TOKEN);
 
+app.use(express.static(__dirname + '/public'));
+app.get('/index.html', function (req, res) {
+   res.sendFile(__dirname + "/" + "index.php");
+})
+
+var site_server = app.listen(8081, function () {
+   var host = server.address().address
+   var port = server.address().port
+   console.log("MacBot listening at http://%s:%s", host, port)
+
+})
+
 //ssh into computer and execute remote commands
 var SSH = require('simple-ssh');
 
 var ssh = new SSH({
-  //  host: 'localhost',
-    host: '35.22.24.239',
-    user: 'Wei-Wei',
-    pass: '!!Gw009257!!'
-
-    // host: 'csel-kh1250-01.cselabs.umn.edu',
-    // user: 'wuxx1045',
-    // pass: 'Gw009257!!'
+    //host: 'localhost',
+    host: HOST,
+    user: USER,
+    pass: PASS
     //key: SSH_KEY
 });
 
 function resetQueue(){
   ssh = new SSH({
       //host: 'localhost',
-      host: '35.22.24.239',
-      user: 'Wei-Wei',
-      pass: '!!Gw009257!!'
+      host: HOST,
+      user: USER,
+      pass: PASS
       //key: SSH_KEY
   });
 }

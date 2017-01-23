@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>MacBot</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      var accessToken = "67460b2deea9478ba2c72710bdcb3988";
+      var baseUrl = "https://api.api.ai/v1/";
+      $(document).ready(function() {
+        $("#input").keypress(function(event) {
+          if (event.which == 13) {
+            event.preventDefault();
+            send();
+          }
+        });
+        $("#rec").click(function(event) {
+          switchRecognition();
+        });
+      });
+      var recognition;
+      function startRecognition() {
+        recognition = new webkitSpeechRecognition();
+        recognition.onstart = function(event) {
+          updateRec();
+        };
+        recognition.onresult = function(event) {
+          var text = "";
+            for (var i = event.resultIndex; i < event.results.length; ++i) {
+              text += event.results[i][0].transcript;
+            }
+            setInput(text);
+          stopRecognition();
+        };
+        recognition.onend = function() {
+          stopRecognition();
+        };
+        recognition.lang = "en-US";
+        recognition.start();
+      }
+
+      function stopRecognition() {
+        if (recognition) {
+          recognition.stop();
+          recognition = null;
+        }
+        updateRec();
+      }
+      function switchRecognition() {
+        if (recognition) {
+          stopRecognition();
+        } else {
+          startRecognition();
+        }
+      }
+      function setInput(text) {
+        $("#input").val(text);
+        send();
+      }
+      function updateRec() {
+        $("#rec").text(recognition ? "Stop" : "Speak");
+      }
+      function send() {
+        var text = $("#input").val();
+        $.ajax({
+          type: "POST",
+          url: baseUrl + "query?v=20150910",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          headers: {
+            "Authorization": "Bearer " + accessToken
+          },
+          data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing" }),
+          success: function(data) {
+            setResponse(JSON.stringify(data, undefined, 2));
+            $("#hresponse").text(data['result']['fulfillment']['speech']);
+
+            var contextString = "";
+            var jsonContexts = data['result']['contexts'];
+            for (i=0;i < jsonContexts.length;i++){
+              contextString += jsonContexts[i]['name'];
+            }
+            $("#context").text(contextString);
+
+            var paramString = "";
+            for (i=0;i < jsonContexts.length;i++){
+              paramString += JSON.stringify(jsonContexts[i]['parameters'], undefined, 2);
+            }
+            $("#parameters").text(paramString);
+          },
+          error: function() {
+            setResponse("Internal Server Error");
+          }
+        });
+        setResponse("Loading...");
+      }
+      function setResponse(val) {
+        $("#response").text(val);
+      }
+    </script>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Intro -->
+					<section id="intro" class="wrapper style1 fullscreen fade-up">
+						<div class="inner">
+							<h1>MacBot</h1>
+							<p>A conversational automation AI designed by Wei Wei Wu and Garrett Sundin</p>
+							<ul class="actions">
+                <input id="input" type="text">
+                <br>
+                <button id="rec">Speak</button>
+                <br>
+
+                <br>Response<br> <textarea id="response" readonly></textarea>
+
+                <br>Human readable<br> <textarea id="hresponse" readonly></textarea>
+
+                <br>Context<br> <textarea id="context"></textarea>
+
+                <br>Parameters<br> <textarea id ="parameters" readonly></textarea>
+							</ul>
+						</div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper style1-alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Untitled. All rights reserved.</li>
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a>
+            <li>Function: Wei Wei & Garrett ♥</li>
+            </li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
