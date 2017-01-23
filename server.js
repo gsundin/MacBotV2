@@ -108,11 +108,20 @@ app.post('/webhook', (req, res) => {
   }
 });
 
+//create handling messages from website
+app.post('/website', (req, res) => {
+  console.log('webstie request');
+  console.log(req);
+});
+
+
+
 /* GET query from API.ai */
 function receivedMessage(event) {
   let sender = event.sender.id;
   let text = event.message.text;
-
+  console.log('Sending api.ai text');
+  console.log(text);
   let apiai = apiaiApp.textRequest(text, {
     sessionId: 'MacBot'
   });
