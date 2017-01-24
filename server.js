@@ -3,9 +3,9 @@ const APIAI_TOKEN = '67460b2deea9478ba2c72710bdcb3988';
 const WEATHER_API_KEY = '9372fc4ed00ed38e46e398f65326d438';
 //const SSH_KEY = require('fs').readFileSync('~/.ssh/id_rsa');
 
-const HOST = '';
-const USER = '';
-const PASS = '';
+const HOST = 'x-10-104-188-17.uofm-secure.wireless.umn.edu';
+const USER = 'Wei-Wei';
+const PASS = '!!Gw009257!!';
 
 
 const express = require('express');
